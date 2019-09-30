@@ -1,0 +1,27 @@
+﻿@model ProjectStok.Models.Entity.TBLKategoriler
+@{
+    ViewBag.Title = "YeniKategoriEkle";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+<form class="form-group" method="post">
+    @*<div>
+        <label>Kategori Adı</label>
+        <input type="text" class="form-control" name="KategoriAd" /> 
+    </div><br />
+        *@
+    <div>
+        <label>Kategori Adı</label>
+        @Html.TextBoxFor(k=>k.KategoriAd, new { @class = "form-control" })
+        @Html.ValidationMessageFor(k=>k.KategoriAd,"",new { @style="color:red"})
+    </div>
+    <br />
+    <div>
+        <button class="btn btn-inf" id="btn1">Kategori Ekle</button>
+        <script>
+                $('#btn1').click(function () {
+                    alert('Katergori Başarılı bir şekilde eklendi...');
+                });
+        </script>
+    </div>
+</form>
+

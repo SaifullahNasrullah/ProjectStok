@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="StokModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBLKategoriler">
+    <Key>
+      <PropertyRef Name="KategoriID" />
+    </Key>
+    <Property Name="KategoriID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KategoriAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TBLUrunler" Relationship="Self.FK_TBLUrunler_TBLKategoriler" FromRole="TBLKategoriler" ToRole="TBLUrunler" />
+  </EntityType>
+  <EntityType Name="TBLMusteriler">
+    <Key>
+      <PropertyRef Name="MusterID" />
+    </Key>
+    <Property Name="MusterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MusterAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MusteriSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TBLSatis" Relationship="Self.FK_TBLSatis_TBLMusteriler" FromRole="TBLMusteriler" ToRole="TBLSatis" />
+  </EntityType>
+  <EntityType Name="TBLSatis">
+    <Key>
+      <PropertyRef Name="SatisID" />
+    </Key>
+    <Property Name="SatisID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UrunID" Type="Int32" />
+    <Property Name="MusteriID" Type="Int32" />
+    <Property Name="Adet" Type="Byte" />
+    <Property Name="Fiyat" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="TBLMusteriler" Relationship="Self.FK_TBLSatis_TBLMusteriler" FromRole="TBLSatis" ToRole="TBLMusteriler" />
+    <NavigationProperty Name="TBLUrunler" Relationship="Self.FK_TBLSatis_TBLUrunler" FromRole="TBLSatis" ToRole="TBLUrunler" />
+  </EntityType>
+  <EntityType Name="TBLUrunler">
+    <Key>
+      <PropertyRef Name="UrunID" />
+    </Key>
+    <Property Name="UrunID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UrunAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UrunKategori" Type="Int16" />
+    <Property Name="Fiyat" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Marka" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Stok" Type="Byte" />
+    <NavigationProperty Name="TBLKategoriler" Relationship="Self.FK_TBLUrunler_TBLKategoriler" FromRole="TBLUrunler" ToRole="TBLKategoriler" />
+    <NavigationProperty Name="TBLSatis" Relationship="Self.FK_TBLSatis_TBLUrunler" FromRole="TBLUrunler" ToRole="TBLSatis" />
+  </EntityType>
+  <Association Name="FK_TBLUrunler_TBLKategoriler">
+    <End Role="TBLKategoriler" Type="Self.TBLKategoriler" Multiplicity="0..1" />
+    <End Role="TBLUrunler" Type="Self.TBLUrunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLKategoriler">
+        <PropertyRef Name="KategoriID" />
+      </Principal>
+      <Dependent Role="TBLUrunler">
+        <PropertyRef Name="UrunKategori" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLSatis_TBLMusteriler">
+    <End Role="TBLMusteriler" Type="Self.TBLMusteriler" Multiplicity="0..1" />
+    <End Role="TBLSatis" Type="Self.TBLSatis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLMusteriler">
+        <PropertyRef Name="MusterID" />
+      </Principal>
+      <Dependent Role="TBLSatis">
+        <PropertyRef Name="MusteriID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLSatis_TBLUrunler">
+    <End Role="TBLUrunler" Type="Self.TBLUrunler" Multiplicity="1" />
+    <End Role="TBLSatis" Type="Self.TBLSatis" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="TBLUrunler">
+        <PropertyRef Name="UrunID" />
+      </Principal>
+      <Dependent Role="TBLSatis">
+        <PropertyRef Name="SatisID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="StokEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TBLKategoriler" EntityType="Self.TBLKategoriler" />
+    <EntitySet Name="TBLMusteriler" EntityType="Self.TBLMusteriler" />
+    <EntitySet Name="TBLSatis" EntityType="Self.TBLSatis" />
+    <EntitySet Name="TBLUrunler" EntityType="Self.TBLUrunler" />
+    <AssociationSet Name="FK_TBLUrunler_TBLKategoriler" Association="Self.FK_TBLUrunler_TBLKategoriler">
+      <End Role="TBLKategoriler" EntitySet="TBLKategoriler" />
+      <End Role="TBLUrunler" EntitySet="TBLUrunler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLSatis_TBLMusteriler" Association="Self.FK_TBLSatis_TBLMusteriler">
+      <End Role="TBLMusteriler" EntitySet="TBLMusteriler" />
+      <End Role="TBLSatis" EntitySet="TBLSatis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLSatis_TBLUrunler" Association="Self.FK_TBLSatis_TBLUrunler">
+      <End Role="TBLUrunler" EntitySet="TBLUrunler" />
+      <End Role="TBLSatis" EntitySet="TBLSatis" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

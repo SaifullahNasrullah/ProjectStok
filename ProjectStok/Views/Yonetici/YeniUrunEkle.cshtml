@@ -1,0 +1,30 @@
+﻿@model ProjectStok.Models.Entity.TBLUrunler
+@{
+    ViewBag.Title = "Yeni UrunEkle";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+    <form class="form-group" method="post">
+       <div>
+            <label>Urun Adı</label>
+            <input type="text" class="form-control" name="UrunAdi" required="" maxlength="50" placeholder="Ad"/> 
+            <label>Kategori Seçiniz</label><br />
+            @Html.DropDownListFor(kt => kt.TBLKategoriler.KategoriID, (List<SelectListItem>)ViewData["KategoriList"], new { @class = "form-control" })
+            <label>Marka</label>
+            <input type="text" class="form-control" name="Marka" required="" maxlength="50" placeholder="Marka"/>
+            <label>Fiyat</label>
+            <input type="text" class="form-control" name="Fiyat" required="" maxlength="20" placeholder="Fiyat"/>
+            <label>Stok</label>
+            <input type="text" class="form-control" name="Stok" required="" maxlength="15" placeholder="Stok"/>
+
+        </div><br />
+              <div>
+                  <button class="btn btn-info" id="btn1">Yeni Urun Ekle</button>
+                  <script>
+                $('#btn1').click(function () {
+                    alert('Katergori Başarılı bir şekilde eklendi...');
+                });
+                  </script>
+              </div>
+        </form>
+

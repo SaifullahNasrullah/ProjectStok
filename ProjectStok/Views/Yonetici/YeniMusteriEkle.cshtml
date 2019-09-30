@@ -1,0 +1,25 @@
+﻿@model ProjectStok.Models.Entity.TBLMusteriler
+@{
+    ViewBag.Title = "YeniMusteriEkle";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<form class="form-group" method="post">
+    <div>
+        <label>Müşteri Adı</label>
+        <input type="text" class="form-control" name="MusterAd"/>
+        @Html.ValidationMessageFor(m => m.MusterAd, "", new { @style = "color:red" })<br />
+        <label>Müşteri Soyad</label>
+        <input type="text" class="form-control" name="MusteriSoyad" />
+        @Html.ValidationMessageFor(m => m.MusteriSoyad, "", new { @style = "color:red" })
+    </div><br />
+          <div>
+              <button class="btn btn-info" id="btn1">Yeni Müşteri Ekle</button>
+
+              <script>
+                $('#btn1').click(function () {
+                    alert('Katergori Başarılı bir şekilde eklendi...');
+                });
+              </script>
+          </div>
+</form>

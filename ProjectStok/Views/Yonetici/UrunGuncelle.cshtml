@@ -1,0 +1,34 @@
+﻿@model ProjectStok.Models.Entity.TBLUrunler
+@{
+    ViewBag.Title = "UrunGuncelle";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<h2>Urun Guncelle</h2>
+@using  (Html.BeginForm("UrunGuncellemeyiKaydet","Yonetici", FormMethod.Post))
+{
+<div class="form-group">
+    @Html.LabelFor(u => u.UrunID)
+    @Html.TextBoxFor(u => u.UrunID, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(u => u.UrunAdi)
+    @Html.TextBoxFor(u => u.UrunAdi, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(u => u.UrunKategori)
+    @*Html.TextBoxFor(u => u.TBLKategoriler.KategoriAd, new { @class = "form-control" })*@ 
+    @Html.DropDownListFor(kt => kt.TBLKategoriler.KategoriID, (List<SelectListItem>)ViewData["KategoriList"], new { @class = "form-control" });
+    <br />
+    @Html.LabelFor(u => u.Marka)
+    @Html.TextBoxFor(u => u.Marka, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(u => u.Fiyat)
+    @Html.TextBoxFor(u => u.Fiyat, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(u => u.Stok)
+    @Html.TextBoxFor(u => u.Stok, new { @class = "form-control" })
+    <br />
+</div>
+    <div>
+        <button class="btn btn-warning">Güncellemyi Kaydet</button>
+    </div>
+}

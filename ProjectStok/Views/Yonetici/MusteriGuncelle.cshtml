@@ -1,0 +1,24 @@
+﻿@model ProjectStok.Models.Entity.TBLMusteriler
+@{
+    ViewBag.Title = "MusteriGuncelle";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+<h2>Musteri Guncelle</h2>
+@using (Html.BeginForm("MusteriGuncellemeyiKaydet", "Yonetici", FormMethod.Post))
+{ 
+<div class="form-group">
+    @Html.LabelFor(m => m.MusterID)
+    @Html.TextBoxFor(m => m.MusterID, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(m => m.MusterAd)
+    @Html.TextBoxFor(m => m.MusterAd, new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(m => m.MusteriSoyad)
+    @Html.TextBoxFor(m => m.MusteriSoyad, new { @class = "form-control" })
+</div>
+    <div>
+        <button class="btn btn-warning">Güncellemeyi Kaydet</button>
+    </div>
+}
+

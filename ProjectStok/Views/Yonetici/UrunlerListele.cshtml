@@ -1,0 +1,41 @@
+﻿@using ProjectStok.Models.Entity
+@using PagedList
+@using PagedList.Mvc 
+@model PagedList.IPagedList<TBLUrunler>
+@{
+    ViewBag.Title = "Urunler Listesi";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+
+<div class="urunlerTable">
+    <table class="table table-bordered">
+        <tr>
+            <th>Urun Adı</th>
+            <th>Urun Kategori</th>
+            <th>Marka</th>
+            <th>Fiyat</th>
+            <th>Stok</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+        <tbody>
+            @foreach (var urun in Model)
+            {
+                <tr>
+                    <td>@urun.UrunAdi</td>
+                    <td>@urun.TBLKategoriler.KategoriAd</td>
+                    <td>@urun.Marka</td>
+                    <td>@urun.Fiyat</td>
+                    <td>@urun.Stok</td>
+                    <td><a href="~/Yonetici/UrunSil/@urun.UrunID" class="btn btn-danger">Sil</a></td>
+                    <td><a href="~/Yonetici/UrunGuncelle/@urun.UrunID" class="btn btn-success">Güncelle</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div style="text-align:center">
+        @Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("UrunlerListele", new { sayfa }))
+        <a href="~/Yonetici/YeniUrunEkle/" class="btn btn-primary">Yeni Urun Ekle</a>
+    </div>
+</div>

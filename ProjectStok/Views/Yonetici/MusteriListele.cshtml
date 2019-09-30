@@ -1,0 +1,37 @@
+﻿
+@using ProjectStok.Models.Entity
+@using PagedList
+@using PagedList.Mvc  
+@model PagedList.IPagedList<TBLMusteriler>
+
+@{
+    ViewBag.Title = "MusteriListele";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+    <div>
+        <table class="table table-bordered">
+            <tr>
+                <th>Müşteri Adı</th>
+                <th>Müşteri Soyad</th>
+                <th>Sil</th>
+                <th>Güncelle</th>
+            </tr>
+            <tbody>
+                @foreach (var musteri in Model)
+                {
+                <tr>
+                    <td>@musteri.MusterAd</td>
+                    <td>@musteri.MusteriSoyad</td>
+                    <!-- <td><a href="~/Yonetici/MusteriSil/@musteri.MusterID" class="btn btn-danger">Sil</a></td>--> 
+                    <td>@Html.ActionLink("Sil", "MusteriSil", new { id = musteri.MusterID }, new { @class = "btn btn-warning", onclick = "return confirm('Silmek istediğiniz emin misiniz ?')" })</td>
+                    <td><a href="~/Yonetici/MusteriGuncelle/@musteri.MusterID" class="btn btn-success">Güncelle</a></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <div style="text-align:center">
+            @Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("MusteriListele", new { sayfa })) 
+            <a href="~/Yonetici/YeniMusteriEkle/" class="btn btn-primary">Yeni Müşteri Ekle</a>
+        </div>
+    </div>
